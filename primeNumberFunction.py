@@ -1,5 +1,6 @@
 from time import sleep
 
+
 def is_prime(n):
     if n <= 1:
         return False
@@ -12,22 +13,25 @@ def is_prime(n):
             return False
     return True
 
-def calculatePrimes(start,stop):
+
+def calculatePrimes(finished, progress, start, stop):
     res = []
 
     # Switch Numbers
-    if start>stop:
+    if start > stop:
         temp = stop
         stop = start
         start = temp
 
-    for i in range(start,stop):
+    for i in range(start, stop):
         if is_prime(i):
             res.append(i)
 
     # Simulate Long Function By adding sleep
     for i in range(10):
         sleep(1)
-        print(f"Long Running Step : {i+1}")
+        progress.emit(i + 1)  # Signal progress
+        print(f"Long Running Step : {i + 1}")
 
+    finished.emit()  # Signal Finished
     return res
